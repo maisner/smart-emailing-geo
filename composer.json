@@ -1,0 +1,80 @@
+{
+  "name": "maisner/smart-emailing-geo",
+  "description": "",
+  "keywords": [
+    "nette"
+  ],
+  "type": "project",
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "php": ">= 7.4",
+    "nette/application": "^3.0",
+    "nette/bootstrap": "^3.0",
+    "nette/caching": "^3.0",
+    "nette/database": "^3.0",
+    "nette/di": "^3.0",
+    "nette/finder": "^2.5",
+    "nette/forms": "^3.0",
+    "nette/http": "^3.0",
+    "nette/mail": "^3.0",
+    "nette/robot-loader": "^3.0",
+    "nette/security": "^3.0",
+    "nette/utils": "^3.0",
+    "latte/latte": "^2.5",
+    "tracy/tracy": "^2.6",
+    "myclabs/php-enum": "^1.7",
+    "guzzlehttp/guzzle": "^6.5",
+    "contributte/console": "^0.8.0",
+    "ext-json": "*",
+    "ext-simplexml": "*"
+  },
+  "require-dev": {
+    "nette/tester": "^2.0",
+    "phpstan/phpstan": "^0.12.17",
+    "phpstan/phpstan-nette": "^0.12.6",
+    "phpstan/phpstan-strict-rules": "^0.12.2",
+    "slevomat/coding-standard": "^6.1",
+    "codeception/codeception": "^4.1",
+    "codeception/module-asserts": "^1.0.0",
+    "ext-json": "*"
+  },
+  "scripts": {
+    "console": "php bin/console",
+    "tests:unit": "php vendor/bin/codecept run unit",
+    "tests:integration": "echo Test",
+    "phpstan": "php vendor/bin/phpstan analyse -l 8 -c phpstan.neon app",
+    "cs": "php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=ruleset.xml --extensions=php --tab-width=4  -sp app",
+    "cs:fix": "php vendor/squizlabs/php_codesniffer/bin/phpcbf --standard=ruleset.xml --extensions=php --tab-width=4 -sp app",
+    "tests": [
+      "@tests:unit",
+      "@tests:integration"
+    ],
+    "build": [
+      "@cs",
+      "@phpstan",
+      "@tests:unit"
+    ],
+    "build:complete": [
+      "@cs",
+      "@phpstan",
+      "@tests"
+    ]
+  },
+  "autoload": {
+    "classmap": [
+      "app/Bootstrap.php"
+    ],
+    "psr-4": {
+      "Maisner\\App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Maisner\\App\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

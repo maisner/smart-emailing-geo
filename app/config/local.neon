@@ -1,0 +1,7 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=mysql;dbname=smart-emailing-geo'
+	user: smart-emailing-geo
+	password: '123'

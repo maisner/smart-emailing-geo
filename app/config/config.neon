@@ -1,0 +1,39 @@
+parameters:
+	geolocation:
+		ipgeolocation:
+			key: aac3533e18b647de8b181b26051c388f
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: Maisner\App\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: Maisner\App\Router\RouterFactory::createRouter
+	identityMap.factory: Maisner\App\Model\Utils\IdentityMap\Factory\IdentityMapFactory
+#	app.remoteIpAddress: \Maisner\App\Model\Utils\IP(@http.request::getRemoteAddress())
+	app.remoteIpAddress: \Maisner\App\Model\Utils\IP('80.188.30.113')
+	app.httpClient: GuzzleHttp\Client
+
+	- Maisner\App\Model\SalesPoint\SalesPointRepository
+	- Maisner\App\Model\SalesPoint\SalesPointFacade
+	- Maisner\App\Model\Geolocation\Service\IpGeolocation(%geolocation.ipgeolocation.key%, \GuzzleHttp\Client())
+
+
+	# Console commands
+	command.salesPoint.import:
+		class: Maisner\App\Console\ImportSalesPointsCommand
+		tags: [console.command: salesPoints:import]
+
+	command.salesPoint.clear:
+		class: Maisner\App\Console\ClearSalesPointsCommand
+		tags: [console.command: salesPoints:clear]
+
+extensions:
+    console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
