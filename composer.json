@@ -38,19 +38,18 @@
     "slevomat/coding-standard": "^6.1",
     "codeception/codeception": "^4.1",
     "codeception/module-asserts": "^1.0.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "codeception/module-phpbrowser": "^1.0.0"
   },
   "scripts": {
     "console": "php bin/console",
+    "codecept": "php vendor/bin/codecept",
+    "tests": "php vendor/bin/codecept run --steps --colors",
+    "tests:acceptance": "php vendor/bin/codecept run unit",
     "tests:unit": "php vendor/bin/codecept run unit",
-    "tests:integration": "echo Test",
     "phpstan": "php vendor/bin/phpstan analyse -l 8 -c phpstan.neon app",
     "cs": "php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=ruleset.xml --extensions=php --tab-width=4  -sp app",
     "cs:fix": "php vendor/squizlabs/php_codesniffer/bin/phpcbf --standard=ruleset.xml --extensions=php --tab-width=4 -sp app",
-    "tests": [
-      "@tests:unit",
-      "@tests:integration"
-    ],
     "build": [
       "@cs",
       "@phpstan",
