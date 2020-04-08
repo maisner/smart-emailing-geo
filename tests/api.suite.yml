@@ -1,0 +1,8 @@
+actor: ApiTester
+modules:
+    enabled:
+        - \Maisner\Tests\Helper\Api
+        - REST:
+              url: http://php-apache-test
+              depends: PhpBrowser
+              part: Json

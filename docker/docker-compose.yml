@@ -11,7 +11,31 @@ services:
             - mysql
         volumes:
             - ../:/var/www/html
+        environment:
+            - DEBUG=1
+            - APP_INSTANCE_NAME=APP
+            - DB_HOST=mysql
+            - DB_NAME=smart-emailing-geo
+            - DB_USER=smart-emailing-geo
+            - DB_PASS=123
 
+    php-apache-test:
+        build:
+            context: ../
+            dockerfile: docker/php-apache/Dockerfile
+        container_name: php-apache-test
+        ports:
+            - "9080:80"
+        links:
+            - mysql-test
+        volumes:
+            - ../:/var/www/html
+        environment:
+            - APP_INSTANCE_NAME=TEST_APP
+            - DB_HOST=mysql-test
+            - DB_NAME=smart-emailing-geo
+            - DB_USER=smart-emailing-geo
+            - DB_PASS=123
     mysql:
         image: mysql:5.7
         container_name: mysql
