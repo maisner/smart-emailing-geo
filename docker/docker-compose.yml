@@ -13,6 +13,7 @@ services:
             - ../:/var/www/html
         environment:
             - DEBUG=1
+            - APP_CLIENT_IP=131.117.214.28
             - APP_INSTANCE_NAME=APP
             - DB_HOST=mysql
             - DB_NAME=smart-emailing-geo
@@ -31,6 +32,7 @@ services:
         volumes:
             - ../:/var/www/html
         environment:
+            - APP_CLIENT_IP=131.117.214.28
             - APP_INSTANCE_NAME=TEST_APP
             - DB_HOST=mysql-test
             - DB_NAME=smart-emailing-geo
