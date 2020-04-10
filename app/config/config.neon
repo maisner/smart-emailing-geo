@@ -16,6 +16,8 @@ session:
 
 services:
 	router: Maisner\App\Router\RouterFactory::createRouter
+	dateTime.provider.factory: Maisner\App\Model\Utils\DateTimeProviderFactory
+	dateTime.provider: @dateTime.provider.factory::create()
 	identityMap.factory: Maisner\App\Model\Utils\IdentityMap\Factory\IdentityMapFactory
 	app.clientIpAddress.factory: Maisner\App\Model\Utils\IPClientFactory
 	app.clientIpAddress: @app.clientIpAddress.factory::create()

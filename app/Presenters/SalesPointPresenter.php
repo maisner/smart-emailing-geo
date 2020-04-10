@@ -8,12 +8,16 @@ use Maisner\App\Model\Geolocation\Service\IpGeolocation;
 use Maisner\App\Model\SalesPoint\SalesPointFacade;
 use Maisner\App\Model\SalesPoint\SalesPointRepository;
 use Maisner\App\Model\SalesPoint\SortBy;
+use Maisner\App\Model\Utils\DateTimeProvider;
 use Maisner\App\Model\Utils\IP;
 use Nette;
 use Nette\Utils\DateTime;
 use Throwable;
 
 final class SalesPointPresenter extends Nette\Application\UI\Presenter {
+
+	/** @var DateTimeProvider @inject */
+	public DateTimeProvider $dateTimeProvider;
 
 	/** @var SalesPointRepository @inject */
 	public SalesPointRepository $salesPointRepository;
@@ -104,16 +108,13 @@ final class SalesPointPresenter extends Nette\Application\UI\Presenter {
 		$timestamp = $this->getHttpRequest()->getQuery('timestamp');
 
 		if (Nette\Utils\Validators::isNone($timestamp)) {
-			return new DateTime();
+			return $this->dateTimeProvider->getCurrent();
 		}
 
 		try {
-			$datetime = new DateTime('@' . $timestamp);
-			$datetime->setTimezone(new \DateTimeZone('Europe/Prague'));
-
-			return $datetime;
+			return $this->dateTimeProvider->getByTimestamp($timestamp);
 		} catch (\Throwable $e) {
-			return new DateTime();
+			return $this->dateTimeProvider->getCurrent();
 		}
 	}
 
