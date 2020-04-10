@@ -4,8 +4,11 @@ namespace Maisner\App\Model\SalesPoint;
 
 use Maisner\App\Model\EntityInterface;
 use Maisner\App\Model\Utils\GpsCoordinates;
+use Nette\SmartObject;
 
 class SalesPoint implements EntityInterface, \JsonSerializable {
+
+	use SmartObject;
 
 	private int $id;
 

@@ -4,8 +4,11 @@ namespace Maisner\App\Model\Utils;
 
 
 use Maisner\App\Model\Exception\InvalidArgumentException;
+use Nette\SmartObject;
 
 class IP {
+
+	use SmartObject;
 
 	private string $ip;
 

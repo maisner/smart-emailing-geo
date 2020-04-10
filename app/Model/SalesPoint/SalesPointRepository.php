@@ -14,6 +14,7 @@ use Nette\Database\DriverException;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 use Nette\Database\UniqueConstraintViolationException;
+use Nette\SmartObject;
 use Nette\Utils\ArrayList;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -21,6 +22,8 @@ use Nette\Utils\Strings;
 use Tracy\ILogger;
 
 class SalesPointRepository {
+
+	use SmartObject;
 
 	public const TABLE = 'sales_point';
 

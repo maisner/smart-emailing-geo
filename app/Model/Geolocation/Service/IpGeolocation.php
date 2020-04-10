@@ -9,11 +9,20 @@ use Maisner\App\Model\Exception\HttpException;
 use Maisner\App\Model\Geolocation\GeolocationServiceInterface;
 use Maisner\App\Model\Utils\GpsCoordinates;
 use Maisner\App\Model\Utils\IP;
+use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 use Tracy\ILogger;
 
+/**
+ * Geolocation service for https://ipgeolocation.io/
+ *
+ * Class IpGeolocation
+ * @package Maisner\App\Model\Geolocation\Service
+ */
 class IpGeolocation implements GeolocationServiceInterface {
+
+	use SmartObject;
 
 	private string $apiKey;
 

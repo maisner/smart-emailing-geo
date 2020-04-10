@@ -6,8 +6,12 @@ namespace Maisner\App\Model\Utils;
 use Maisner\App\Model\Exception\InvalidArgumentException;
 use Nette\Http\Request;
 use Nette\InvalidStateException;
+use Nette\SmartObject;
 
 class IPClientFactory {
+
+	use SmartObject;
+
 	private Request $request;
 
 	public function __construct(Request $request) {
