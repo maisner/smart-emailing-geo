@@ -29,4 +29,5 @@ INSERT INTO `sales_point` (`id`, `type`, `name`, `address`, `opening_hours`, `la
 (1,	'ticketMachine',	'Brno',	'Street 23, Brno',	'[{\"to\": 6, \"from\": 0, \"hours\": \"9:00-17:00\"}]',	49.1917817,	16.6096233,	1,	5,	NULL,	NULL,	'sp1'),
 (2,	'ticketMachine',	'Jihlava',	'Street 50, Jihlava',	'[{\"to\": 4, \"from\": 0, \"hours\": \"10:00-17:00\"}]',	49.3961528,	15.5824017,	1,	5,	NULL,	NULL,	'sp2'),
 (3,	'ticketMachine',	'Praha',	'Street 87, Praha',	'[{\"to\": 4, \"from\": 0, \"hours\": \"10:00-18:30\"}]',	50.0797556,	14.4297436,	1,	5,	NULL,	NULL,	'sp3'),
-(4,	'ticketMachine',	'Aš',	'Street 102, Aš',	'[{\"to\": 6, \"from\": 5, \"hours\": \"09:00-10:00\"}]',	50.2205719,	12.1897450,	1,	5,	NULL,	NULL,	'sp4');
+(4,	'ticketMachine',	'Aš',	'Street 102, Aš',	'[{\"to\": 6, \"from\": 5, \"hours\": \"09:00-10:00\"}]',	50.2205719,	12.1897450,	1,	5,	NULL,	NULL,	'sp4'),
+(5,	'ticketMachine',	'Zlín',	'Street 250, Zlín',	'[{\"to\": 4, \"from\": 0, \"hours\": \"09:00-16:00\"}]',	49.2229383,	17.6599225,	1,	5,	NULL,	NULL,	'sp5');

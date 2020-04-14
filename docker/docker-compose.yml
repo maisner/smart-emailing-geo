@@ -32,7 +32,7 @@ services:
         volumes:
             - ../:/var/www/html
         environment:
-            - APP_DATETIME_CURRENT=2020-04-06 17:00:00
+            - APP_DATETIME_CURRENT=2020-04-06 16:45:00
             - APP_CLIENT_IP=131.117.214.28
             - APP_INSTANCE_NAME=TEST_APP
             - DB_HOST=mysql-test
