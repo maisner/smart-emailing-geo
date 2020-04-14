@@ -45,7 +45,7 @@
     "console": "php bin/console",
     "cache:purge": "rm -r temp/*/cache",
     "codecept": "php vendor/bin/codecept",
-    "tests": "php vendor/bin/codecept run --steps --colors",
+    "tests": "php vendor/bin/codecept run",
     "tests:acceptance": "php vendor/bin/codecept run acceptance",
     "tests:unit": "php vendor/bin/codecept run unit",
     "tests:api": "php vendor/bin/codecept run api",
