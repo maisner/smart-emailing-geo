@@ -43,7 +43,11 @@ final class SalesPointPresenter extends Nette\Application\UI\Presenter {
 		$onlyOpen = $this->getOnlyOpenRequest();
 		$datetime = $this->getDatetimeFromRequest();
 
-		if ($ip instanceof IP && $sortBy->isDistanceSort()) {
+		if ($sortBy->isDistanceSort()) {
+			if (!$ip instanceof IP) {
+				throw new InvalidArgumentException('IP must be set for distance sorting');
+			}
+
 			$sortBy->setActualGps($this->ipGeolocation->getGpsByIp($ip));
 		}
 
