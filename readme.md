@@ -1,5 +1,29 @@
 # Sales points API
 
+### Instalace a spuštění
+
+```
+cd docker
+docker-compose build
+docker-compose up -d
+docker exec -it php-apache bash
+./script/install.sh 
+```
+A nyní by měl být dostupný endopoint
+http://localhost:8080/sales-point
+
+### Spuštění testů
+Testy je potřeba spuštět uvnitř docker kontejneru
+```
+docker exec -it php-apache bash
+```
+
+A poté příkazy 
+- `composer build` - spustí PHPStan, PHP CS a všechny testy
+- `composer tests` - spustí pouze testy
+
+Další příkazy jsou definovány v `composer.json`
+
 ### ENV proměnné
 - `DEBUG`
     - ve výchozím stavu je debug režim vypnut. Pro zapnutí nastavit `DEBUG=1`
