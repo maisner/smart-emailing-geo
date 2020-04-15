@@ -1,5 +1,17 @@
 # Sales points API
 
+### ENV proměnné
+- `DEBUG`
+    - ve výchozím stavu je debug režim vypnut. Pro zapnutí nastavit `DEBUG=1`
+- `APP_DATETIME_CURRENT`
+    - např.: 2020-04-06 16:45:00
+- `APP_CLIENT_IP`
+- `APP_INSTANCE_NAME`
+- `DB_HOST`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASS`
+
 ### Endpoint
 - `GET http://localhost:8080/sales-point`
     - Parametry :
