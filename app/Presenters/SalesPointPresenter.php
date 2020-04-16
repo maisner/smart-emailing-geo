@@ -4,32 +4,17 @@ namespace Maisner\App\Presenters;
 
 use Maisner\App\Model\Exception\HttpException;
 use Maisner\App\Model\Exception\InvalidArgumentException;
-use Maisner\App\Model\Geolocation\Service\IpGeolocation;
+use Maisner\App\Model\SalesPoint\Request\RequestDataFactory;
 use Maisner\App\Model\SalesPoint\SalesPointFacade;
-use Maisner\App\Model\SalesPoint\SalesPointRepository;
-use Maisner\App\Model\SalesPoint\SortBy;
-use Maisner\App\Model\Utils\DateTimeProvider;
-use Maisner\App\Model\Utils\IP;
 use Nette;
-use Nette\Utils\DateTime;
-use Throwable;
 
 final class SalesPointPresenter extends Nette\Application\UI\Presenter {
-
-	/** @var DateTimeProvider @inject */
-	public DateTimeProvider $dateTimeProvider;
-
-	/** @var SalesPointRepository @inject */
-	public SalesPointRepository $salesPointRepository;
 
 	/** @var SalesPointFacade @inject */
 	public SalesPointFacade $salesPointFacade;
 
-	/** @var IpGeolocation @inject */
-	public IpGeolocation $ipGeolocation;
-
-	/** @var IP @inject */
-	public IP $ip;
+	/** @var RequestDataFactory @inject */
+	public RequestDataFactory $requestDataFactory;
 
 	/**
 	 * @throws Nette\Application\AbortException
@@ -38,88 +23,30 @@ final class SalesPointPresenter extends Nette\Application\UI\Presenter {
 	 * @throws InvalidArgumentException
 	 */
 	public function actionDefault(): void {
-		$sortBy = $this->getSortFromRequest();
-		$ip = $this->getIpFromRequest();
-		$onlyOpen = $this->getOnlyOpenRequest();
-		$datetime = $this->getDatetimeFromRequest();
-
-		if ($sortBy->isDistanceSort()) {
-			if (!$ip instanceof IP) {
-				throw new InvalidArgumentException('IP must be set for distance sorting');
-			}
-
-			$sortBy->setActualGps($this->ipGeolocation->getGpsByIp($ip));
-		}
+		$requestData = $this->requestDataFactory->create($this->getHttpRequest());
 
 		$data = [];
 
-		foreach ($this->salesPointFacade->find($onlyOpen, $sortBy, $datetime) as $salesPoint) {
+		foreach (
+			$this->salesPointFacade->find(
+				$requestData->isOnlyOpen(),
+				$requestData->getSortBy(),
+				$requestData->getDateTime()
+			) as $salesPoint
+		) {
 			$data[] = $salesPoint;
 		}
 
 		$this->sendJson(
 			[
 				'filter_params' => [
-					'only_open' => $onlyOpen,
-					'datetime'  => (string)$datetime,
-					'sort_by'   => $sortBy->getValue(),
-					'ip'        => $ip !== NULL ? (string)$ip : NULL,
+					'only_open' => $requestData->isOnlyOpen(),
+					'datetime'  => (string)$requestData->getDateTime(),
+					'sort_by'   => $requestData->getSortBy()->getValue(),
+					'ip'        => $requestData->getIp() !== NULL ? (string)$requestData->getIp() : NULL,
 				],
 				'data'          => $data
 			]
 		);
 	}
-
-	protected function getSortFromRequest(): SortBy {
-		$sort = $this->getHttpRequest()->getQuery('sort_by');
-
-		if (Nette\Utils\Validators::isNone($sort)) {
-			return new SortBy(SortBy::ID_ASC);
-		}
-
-		try {
-			return new SortBy($sort);
-		} catch (Throwable $e) {
-			return new SortBy(SortBy::ID_ASC);
-		}
-	}
-
-	protected function getIpFromRequest(): ?IP {
-		$ip = $this->getHttpRequest()->getQuery('ip');
-
-		if (Nette\Utils\Validators::isNone($ip)) {
-			return NULL;
-		}
-
-		if ($ip === 'current') {
-			return $this->ip;
-		}
-
-		try {
-			return new IP($ip);
-		} catch (InvalidArgumentException $e) {
-			return NULL;
-		}
-	}
-
-	protected function getOnlyOpenRequest(): bool {
-		$onlyOpen = $this->getHttpRequest()->getQuery('only_open');
-
-		return $onlyOpen === '1';
-	}
-
-	protected function getDatetimeFromRequest(): DateTime {
-		$timestamp = $this->getHttpRequest()->getQuery('timestamp');
-
-		if (Nette\Utils\Validators::isNone($timestamp)) {
-			return $this->dateTimeProvider->getCurrent();
-		}
-
-		try {
-			return $this->dateTimeProvider->getByTimestamp($timestamp);
-		} catch (\Throwable $e) {
-			return $this->dateTimeProvider->getCurrent();
-		}
-	}
-
 }

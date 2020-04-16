@@ -20,14 +20,14 @@ class SortBy extends Enum {
 	/** @var string */
 	public const DISTANCE_DESC = 'distance_desc';
 
-	protected ?GpsCoordinates $actualGps;
+	protected ?GpsCoordinates $gps;
 
-	public function setActualGps(GpsCoordinates $gps): void {
-		$this->actualGps = $gps;
+	public function setGps(GpsCoordinates $gps): void {
+		$this->gps = $gps;
 	}
 
-	public function getActualGps(): ?GpsCoordinates {
-		return $this->actualGps;
+	public function getGps(): ?GpsCoordinates {
+		return $this->gps;
 	}
 
 	public function isDistanceSort(): bool {

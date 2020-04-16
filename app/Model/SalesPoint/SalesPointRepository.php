@@ -150,7 +150,7 @@ class SalesPointRepository {
 	 */
 	protected function getOrderByString(SortBy $sortBy): string {
 		if ($sortBy->isDistanceSort()) {
-			$gps = $sortBy->getActualGps();
+			$gps = $sortBy->getGps();
 			if ($gps === NULL) {
 				throw new InvalidArgumentException('Actual GPS is required for distance sort');
 			}

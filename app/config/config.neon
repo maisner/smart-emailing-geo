@@ -25,6 +25,7 @@ services:
 
 	- Maisner\App\Model\SalesPoint\SalesPointRepository
 	- Maisner\App\Model\SalesPoint\SalesPointFacade
+	- Maisner\App\Model\SalesPoint\Request\RequestDataFactory
 	- Maisner\App\Model\Geolocation\Service\IpGeolocation(%geolocation.ipgeolocation.key%, \GuzzleHttp\Client())
 
 
